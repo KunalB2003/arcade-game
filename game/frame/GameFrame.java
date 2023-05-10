@@ -14,13 +14,11 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
     public GameFrame(String title) {
         super(title);
-        
         setSize(FRAME_DIMENSIONS);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         addMouseListener(this);
         addMouseMotionListener(this);
-
         addGraphicsComponent();
     }
 

@@ -21,25 +21,19 @@ public class GraphicsComponent extends JComponent {
     public GraphicsComponent() {
         super();
         initializeGameGrid();
-
         new Timer(1, (e) -> repaint()).start();
     }
 
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
         Graphics2D g = (Graphics2D) g0;
-
         g.clearRect(0, 0, (int) FRAME_DIMENSIONS.getWidth(), (int) FRAME_DIMENSIONS.getHeight());
-
         // Score
         drawScore(g);
-
         // Grid
         drawGrid(g);
-
         // Highlight
         drawHighlight(g);
-
         // Active Piece
         // New Game
         // ?
@@ -69,7 +63,6 @@ public class GraphicsComponent extends JComponent {
     }
 
     private void drawHighlight(Graphics2D g) {
-        // unimplemented
         g.fillRoundRect(highlightedTile.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
                 highlightedTile.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
                 TILE_SIZE, TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
@@ -85,7 +78,6 @@ public class GraphicsComponent extends JComponent {
 
     public boolean highlightTiles(MouseEvent e) {
         Point mousePos = new Point(e.getPoint().x + POINT_X_OFFSET, e.getPoint().y + POINT_Y_OFFSET);
-
         for (int i = 0; i < gameGrid.length; i++) {
             for (int j = 0; j < gameGrid[i].length; j++) {
                 int x1 = i * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET;
