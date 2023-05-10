@@ -1,6 +1,15 @@
 package game.frame;
 
-import static game.Constants.*;
+import static game.Constants.FRAME_DIMENSIONS;
+import static game.Constants.HIGHLIGHT_COLOR;
+import static game.Constants.POINT_X_OFFSET;
+import static game.Constants.POINT_Y_OFFSET;
+import static game.Constants.SCORE_TEXT_RECT;
+import static game.Constants.TILE_BORDER_RADIUS;
+import static game.Constants.TILE_PADDING;
+import static game.Constants.TILE_SIZE;
+import static game.Constants.TILE_X_OFFSET;
+import static game.Constants.TILE_Y_OFFSET;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -64,6 +73,7 @@ public class GraphicsComponent extends JComponent {
     }
 
     private void drawHighlight(Graphics2D g) {
+        g.setColor(HIGHLIGHT_COLOR);
         g.fillRoundRect(highlightedTile.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
                 highlightedTile.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
                 TILE_SIZE, TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);

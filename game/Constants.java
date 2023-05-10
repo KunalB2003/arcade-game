@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
@@ -22,16 +23,11 @@ public final class Constants {
     public static final int TILE_SIZE = 100;
     public static final int TILE_BORDER_RADIUS = 30;
 
-
-
+    public static final Color HIGHLIGHT_COLOR = new Color(165, 232, 221, 100);
 
     public static final int POINT_X_OFFSET = -10;
     public static final int POINT_Y_OFFSET = -31;
 
-
-
-
-    
     public static final Dimension FRAME_DIMENSIONS = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
     public static final Rectangle SCORE_TEXT_RECT = new Rectangle(SCORE_TEXT_X_BOUNDS, SCORE_TEXT_Y_BOUNDS);
 
