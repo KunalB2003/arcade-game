@@ -71,7 +71,7 @@ public class GraphicsComponent extends JComponent {
     }
 
     private void drawHighlight(Graphics2D g) {
-        g.setColor(HIGHLIGHT_COLOR);
+        g.setColor(highlightSuccess ? HIGHLIGHT_COLOR_PASS : HIGHLIGHT_COLOR_FAIL);
         g.fillRoundRect(highlightedTile1.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
                 highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
                 TILE_SIZE,
