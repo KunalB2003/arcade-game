@@ -1,0 +1,43 @@
+
+single scene game
+
+*----------*
+|   123    |
+|          |
+|  ******  |
+|  ******  |
+|  ******  |
+|          |
+| !  []  ? |
+*----------*
+
+123 = score
+** = game field (5x5 tile)
+! = restart button
+[] = piece to play
+? = options button
+
+
+
+game logic
+create a domino shape piece
+50% chance just single tile
+50% change double tile
+numbers to generate:
+	lowest number = up to 7 lower than current number [>0]
+	higher number = up to 4 lower than current number [>0]
+combination logic:
+	when 3+ adjacent = combine them on the most recent tile
+		do recursively if there are combinations
+	points are equal to the tiles combined
+		ex: when 1, 1, 1 turned into 2, give 3 points
+		if combo'd -> give 2x/3x/etc points
+
+
+ui logic
+click tile to rotate clockwise
+drag tile around to move it to a respective tile 
+	when dragging, scrollwheel to rotate counter/clockwise
+when hovering over a tile, 'highlight' it so that way it's clear where it'll snap too if it drops
+	if invalid tile/drop position, highlight red
+	if valid, highlight blue
