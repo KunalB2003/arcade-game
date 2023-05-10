@@ -187,7 +187,7 @@ public class GraphicsComponent extends JComponent {
                                 highlightedTile2 = new Point(10, 10);
                                 isValidPlacement = false;
                             }
-                            return isValidPlacement;
+                            break;
                         case 1:
                             if (j + 1 < 5) {
                                 highlightedTile2 = new Point(i, j + 1);
@@ -196,7 +196,7 @@ public class GraphicsComponent extends JComponent {
                                 highlightedTile2 = new Point(10, 10);
                                 isValidPlacement = false;
                             }
-                            return isValidPlacement;
+                            break;
                         case 2:
                             if (i - 1 > -1) {
                                 highlightedTile2 = new Point(i - 1, j);
@@ -205,7 +205,7 @@ public class GraphicsComponent extends JComponent {
                                 highlightedTile2 = new Point(10, 10);
                                 isValidPlacement = false;
                             }
-                            return isValidPlacement;
+                            break;
                         case 3:
                             if (j - 1 > -1) {
                                 highlightedTile2 = new Point(i, j - 1);
@@ -214,8 +214,23 @@ public class GraphicsComponent extends JComponent {
                                 highlightedTile2 = new Point(10, 10);
                                 isValidPlacement = false;
                             }
-                            return isValidPlacement;
+                            break;
                     }
+
+                    try {
+                        if (gameGrid[highlightedTile1.x][highlightedTile1.y] == 0) {
+                            if (gameGrid[highlightedTile2.x][highlightedTile2.y] == 0) {
+                                return isValidPlacement;
+                            } 
+                        }
+                        isValidPlacement = false;
+                        return isValidPlacement;
+
+                    } catch (ArrayIndexOutOfBoundsException e1) {
+                        isValidPlacement = false;
+                        return isValidPlacement;
+                    }
+
                 }
             }
         }
@@ -228,7 +243,6 @@ public class GraphicsComponent extends JComponent {
         if (isValidPlacement) {
             gameGrid[highlightedTile1.x][highlightedTile1.y] = activePiece.getVal1();
             gameGrid[highlightedTile2.x][highlightedTile2.y] = activePiece.getVal2();
-            //generate new piece
             activePiece = new Piece();
         }
     }

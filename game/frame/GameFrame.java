@@ -44,6 +44,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
     @Override
     public void mouseReleased(MouseEvent e) {
         gc.placePiece();
+        mouseMoved(e);
     }
     
     @Override
