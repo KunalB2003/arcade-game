@@ -2,7 +2,6 @@ package game.frame;
 
 import static game.Constants.FRAME_DIMENSIONS;
 
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -37,25 +36,27 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
     @Override
     public void mouseClicked(MouseEvent e) {
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
+        gc.placePiece();
     }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseDragged(MouseEvent e) {
+        mouseMoved(e);
     }
 
     @Override

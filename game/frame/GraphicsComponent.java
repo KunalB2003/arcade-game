@@ -32,7 +32,7 @@ public class GraphicsComponent extends JComponent {
 
     private int[][] gameGrid;
     private Point highlightedTile1, highlightedTile2;
-    private boolean highlightSuccess;
+    private boolean isValidPlacement;
     private Piece activePiece;
     public int rotation;
 
@@ -42,7 +42,7 @@ public class GraphicsComponent extends JComponent {
         new Timer(1, (e) -> repaint()).start();
         highlightedTile1 = new Point(10, 10);
         highlightedTile2 = new Point(10, 10);
-        highlightSuccess = true;
+        isValidPlacement = true;
         activePiece = new Piece();
         rotation = 0;
     }
@@ -57,6 +57,8 @@ public class GraphicsComponent extends JComponent {
         drawActivePiece(g);
         // New Game
         // ?
+        // Draw Pieces on Grid
+        drawPieces(g);
     }
 
     private void initializeGameGrid() {
@@ -83,25 +85,27 @@ public class GraphicsComponent extends JComponent {
     }
 
     private void drawHighlight(Graphics2D g) {
-        g.setColor(highlightSuccess ? HIGHLIGHT_COLOR_PASS : HIGHLIGHT_COLOR_FAIL);
+        g.setColor(isValidPlacement ? HIGHLIGHT_COLOR_PASS : HIGHLIGHT_COLOR_FAIL);
         g.fillRoundRect(highlightedTile1.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-        highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
-        TILE_SIZE,
-        TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+                highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                TILE_SIZE,
+                TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
         g.fillRoundRect(highlightedTile2.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-        highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
-        TILE_SIZE,
-        TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+                highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                TILE_SIZE,
+                TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
         g.setColor(Color.black);
-        if (highlightSuccess) {
+        if (isValidPlacement) {
             drawCenteredString(g, activePiece.getVal1() + "",
                     new Rectangle(highlightedTile1.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                            highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                            highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET,
+                            TILE_SIZE,
                             TILE_SIZE),
                     g.getFont());
             drawCenteredString(g, activePiece.getVal2() + "",
                     new Rectangle(highlightedTile2.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                            highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                            highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET,
+                            TILE_SIZE,
                             TILE_SIZE),
                     g.getFont());
         }
@@ -142,6 +146,20 @@ public class GraphicsComponent extends JComponent {
         }
     }
 
+    private void drawPieces(Graphics2D g) {
+        for (int i = 0; i < gameGrid.length; i++) {
+            for (int j = 0; j < gameGrid[i].length; j++) {
+                if (gameGrid[i][j] != 0) {
+                    drawCenteredString(g, gameGrid[i][j] + "",
+                            new Rectangle(i * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                                    j * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                                    TILE_SIZE),
+                            new Font("SansSerif", Font.BOLD, 24));
+                }
+            }
+        }
+    }
+
     private void drawCenteredString(Graphics2D g, String text, Rectangle rect, Font font) {
         FontMetrics metrics = g.getFontMetrics(font);
         int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
@@ -164,39 +182,39 @@ public class GraphicsComponent extends JComponent {
                         case 0:
                             if (i + 1 < 5) {
                                 highlightedTile2 = new Point(i + 1, j);
-                                highlightSuccess = true;
+                                isValidPlacement = true;
                             } else {
                                 highlightedTile2 = new Point(10, 10);
-                                highlightSuccess = false;
+                                isValidPlacement = false;
                             }
-                            return highlightSuccess;
+                            return isValidPlacement;
                         case 1:
                             if (j + 1 < 5) {
                                 highlightedTile2 = new Point(i, j + 1);
-                                highlightSuccess = true;
+                                isValidPlacement = true;
                             } else {
                                 highlightedTile2 = new Point(10, 10);
-                                highlightSuccess = false;
+                                isValidPlacement = false;
                             }
-                            return highlightSuccess;
+                            return isValidPlacement;
                         case 2:
                             if (i - 1 > -1) {
                                 highlightedTile2 = new Point(i - 1, j);
-                                highlightSuccess = true;
+                                isValidPlacement = true;
                             } else {
                                 highlightedTile2 = new Point(10, 10);
-                                highlightSuccess = false;
+                                isValidPlacement = false;
                             }
-                            return highlightSuccess;
+                            return isValidPlacement;
                         case 3:
                             if (j - 1 > -1) {
                                 highlightedTile2 = new Point(i, j - 1);
-                                highlightSuccess = true;
+                                isValidPlacement = true;
                             } else {
                                 highlightedTile2 = new Point(10, 10);
-                                highlightSuccess = false;
+                                isValidPlacement = false;
                             }
-                            return highlightSuccess;
+                            return isValidPlacement;
                     }
                 }
             }
@@ -204,6 +222,15 @@ public class GraphicsComponent extends JComponent {
         highlightedTile1 = new Point(10, 10);
         highlightedTile2 = new Point(10, 10);
         return false;
+    }
+
+    public void placePiece() {
+        if (isValidPlacement) {
+            gameGrid[highlightedTile1.x][highlightedTile1.y] = activePiece.getVal1();
+            gameGrid[highlightedTile2.x][highlightedTile2.y] = activePiece.getVal2();
+            //generate new piece
+            activePiece = new Piece();
+        }
     }
 
 }
