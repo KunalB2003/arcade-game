@@ -11,11 +11,11 @@ public final class Constants {
 
     public static final String GAME_NAME = "TBD";
 
-    private static final int FRAME_WIDTH = 600;
-    private static final int FRAME_HEIGHT = 800;
+    public static final int FRAME_WIDTH = 600;
+    public static final int FRAME_HEIGHT = 800;
 
-    private static final int SCORE_TEXT_X_BOUNDS = 600;
-    private static final int SCORE_TEXT_Y_BOUNDS = 80;
+    public static final int SCORE_TEXT_X_BOUNDS = 600;
+    public static final int SCORE_TEXT_Y_BOUNDS = 80;
 
     public static final int TILE_X_OFFSET = 15;
     public static final int TILE_Y_OFFSET = 80;
@@ -28,6 +28,9 @@ public final class Constants {
     public static final int POINT_X_OFFSET = -10;
     public static final int POINT_Y_OFFSET = -31;
 
+    public static final int ACTIVE_HORIZONTAL_PIECE_Y = 675;
+    public static final int ACTIVE_HORIZONTAL_TEXT_X = 123;
+    
     public static final Dimension FRAME_DIMENSIONS = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
     public static final Rectangle SCORE_TEXT_RECT = new Rectangle(SCORE_TEXT_X_BOUNDS, SCORE_TEXT_Y_BOUNDS);
 

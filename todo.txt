@@ -21,8 +21,7 @@ single scene game
 
 game logic
 create a domino shape piece
-50% chance just single tile
-50% change double tile
+double tile
 numbers to generate:
 	lowest number = up to 7 lower than current number [>0]
 	higher number = up to 4 lower than current number [>0]

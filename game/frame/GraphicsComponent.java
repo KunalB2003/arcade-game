@@ -1,16 +1,8 @@
 package game.frame;
 
-import static game.Constants.FRAME_DIMENSIONS;
-import static game.Constants.HIGHLIGHT_COLOR;
-import static game.Constants.POINT_X_OFFSET;
-import static game.Constants.POINT_Y_OFFSET;
-import static game.Constants.SCORE_TEXT_RECT;
-import static game.Constants.TILE_BORDER_RADIUS;
-import static game.Constants.TILE_PADDING;
-import static game.Constants.TILE_SIZE;
-import static game.Constants.TILE_X_OFFSET;
-import static game.Constants.TILE_Y_OFFSET;
+import static game.Constants.*;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -22,16 +14,20 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
+import game.object.Piece;
+
 public class GraphicsComponent extends JComponent {
 
     private int[][] gameGrid;
     private Point highlightedTile;
+    private Piece activePiece;
 
     public GraphicsComponent() {
         super();
         initializeGameGrid();
         new Timer(1, (e) -> repaint()).start();
         highlightedTile = new Point(10, 10);
+        activePiece = new Piece();
     }
 
     public void paintComponent(Graphics g0) {
@@ -45,6 +41,7 @@ public class GraphicsComponent extends JComponent {
         // Highlight
         drawHighlight(g);
         // Active Piece
+        drawActivePiece(g);
         // New Game
         // ?
     }
@@ -77,9 +74,29 @@ public class GraphicsComponent extends JComponent {
         g.fillRoundRect(highlightedTile.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
                 highlightedTile.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
                 TILE_SIZE, TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+        g.setColor(Color.black);
     }
 
-    private void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+    private void drawActivePiece(Graphics2D g) {
+        g.drawRoundRect(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET, ACTIVE_HORIZONTAL_PIECE_Y,
+                TILE_SIZE, TILE_SIZE / 2, TILE_BORDER_RADIUS / 2, TILE_BORDER_RADIUS / 2);
+        g.drawLine(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
+                ACTIVE_HORIZONTAL_PIECE_Y,
+                2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
+                ACTIVE_HORIZONTAL_PIECE_Y + (TILE_SIZE / 2));
+        drawCenteredString(g, activePiece.getVal1() + "",
+                new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                        ACTIVE_HORIZONTAL_PIECE_Y,
+                        TILE_SIZE / 2, TILE_SIZE / 2),
+                g.getFont());
+        drawCenteredString(g, activePiece.getVal2() + "",
+                new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
+                        ACTIVE_HORIZONTAL_PIECE_Y,
+                        TILE_SIZE / 2, TILE_SIZE / 2),
+                g.getFont());
+    }
+
+    private void drawCenteredString(Graphics2D g, String text, Rectangle rect, Font font) {
         FontMetrics metrics = g.getFontMetrics(font);
         int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
         int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
