@@ -22,6 +22,7 @@ public class GraphicsComponent extends JComponent {
         super();
         initializeGameGrid();
         new Timer(1, (e) -> repaint()).start();
+        highlightedTile = new Point(10, 10);
     }
 
     public void paintComponent(Graphics g0) {
