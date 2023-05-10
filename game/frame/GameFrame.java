@@ -2,6 +2,7 @@ package game.frame;
 
 import static game.Constants.FRAME_DIMENSIONS;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 public class GameFrame extends JFrame implements MouseListener, MouseMotionListener, MouseWheelListener {
     
     private GraphicsComponent gc;
+    private MouseEvent lastMouseEvent;
 
     public GameFrame(String title) {
         super(title);
@@ -23,6 +25,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
         addMouseMotionListener(this);
         addMouseWheelListener(this);
         addGraphicsComponent();
+        lastMouseEvent = null;
     }
 
     private void addGraphicsComponent() {
@@ -57,6 +60,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        lastMouseEvent = e;
         gc.highlightTiles(e);
     }
 
@@ -67,6 +71,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
             gc.rotation = 3;
         }
         gc.rotation %= 4;
+        mouseMoved(lastMouseEvent);
     }
 
 }

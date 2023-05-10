@@ -19,7 +19,7 @@ import game.object.Piece;
 public class GraphicsComponent extends JComponent {
 
     private int[][] gameGrid;
-    private Point highlightedTile;
+    private Point highlightedTile1, highlightedTile2;
     private Piece activePiece;
     public int rotation;
 
@@ -27,7 +27,8 @@ public class GraphicsComponent extends JComponent {
         super();
         initializeGameGrid();
         new Timer(1, (e) -> repaint()).start();
-        highlightedTile = new Point(10, 10);
+        highlightedTile1 = new Point(10, 10);
+        highlightedTile2 = new Point(10, 11);
         activePiece = new Piece();
         rotation = 0;
     }
@@ -69,8 +70,13 @@ public class GraphicsComponent extends JComponent {
 
     private void drawHighlight(Graphics2D g) {
         g.setColor(HIGHLIGHT_COLOR);
-        g.fillRoundRect(highlightedTile.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                highlightedTile.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE, TILE_SIZE,
+        g.fillRoundRect(highlightedTile1.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                TILE_SIZE,
+                TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+        g.fillRoundRect(highlightedTile2.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                TILE_SIZE,
                 TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
         g.setColor(Color.black);
     }
@@ -127,12 +133,33 @@ public class GraphicsComponent extends JComponent {
                 int y1 = j * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET;
                 int y2 = y1 + TILE_SIZE;
                 if (mousePos.x > x1 && mousePos.x < x2 && mousePos.y > y1 && mousePos.y < y2) {
-                    highlightedTile = new Point(i, j);
-                    return true;
+                    switch (rotation) {
+                        case 0:
+                        highlightedTile1 = new Point(i, j);
+                        highlightedTile2 = new Point(i + 1, j);
+                        return true;
+                        case 1:
+                        highlightedTile1 = new Point(i, j);
+                        highlightedTile2 = new Point(i, j + 1);
+                        return true;
+                        case 2:
+                        highlightedTile1 = new Point(i, j);
+                        highlightedTile2 = new Point(i - 1, j);
+                        return true;
+                        case 3:
+                        highlightedTile1 = new Point(i, j);
+                        highlightedTile2 = new Point(i, j - 1);
+                        return true;
+                        default: 
+                        highlightedTile1 = new Point(10, 10);
+                        highlightedTile2 = new Point(10, 11);
+                        return false;
+                    }
                 }
             }
         }
-        highlightedTile = new Point(10, 10);
+        highlightedTile1 = new Point(10, 10);
+        highlightedTile2 = new Point(10, 11);
         return false;
     }
 
