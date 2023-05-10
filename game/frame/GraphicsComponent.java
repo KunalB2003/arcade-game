@@ -61,8 +61,8 @@ public class GraphicsComponent extends JComponent {
         for (int i = 0; i < gameGrid.length; i++) {
             for (int j = 0; j < gameGrid[i].length; j++) {
                 g.drawRoundRect(i * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                        j * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
-                        TILE_SIZE, TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+                        j * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE, TILE_SIZE,
+                        TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
             }
         }
     }
@@ -70,47 +70,42 @@ public class GraphicsComponent extends JComponent {
     private void drawHighlight(Graphics2D g) {
         g.setColor(HIGHLIGHT_COLOR);
         g.fillRoundRect(highlightedTile.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                highlightedTile.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
-                TILE_SIZE, TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+                highlightedTile.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE, TILE_SIZE,
+                TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
         g.setColor(Color.black);
     }
 
     private void drawActivePiece(Graphics2D g) {
         if (rotation % 2 == 0) {
             g.drawRoundRect(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                    ACTIVE_HORIZONTAL_PIECE_Y,
-                    TILE_SIZE, TILE_SIZE / 2, TILE_BORDER_RADIUS / 2, TILE_BORDER_RADIUS / 2);
+                    ACTIVE_HORIZONTAL_PIECE_Y, TILE_SIZE, TILE_SIZE / 2, TILE_BORDER_RADIUS / 2,
+                    TILE_BORDER_RADIUS / 2);
             g.drawLine(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
                     ACTIVE_HORIZONTAL_PIECE_Y,
                     2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
                     ACTIVE_HORIZONTAL_PIECE_Y + (TILE_SIZE / 2));
             drawCenteredString(g, (rotation == 0 ? activePiece.getVal1() : activePiece.getVal2()) + "",
                     new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                            ACTIVE_HORIZONTAL_PIECE_Y,
-                            TILE_SIZE / 2, TILE_SIZE / 2),
+                            ACTIVE_HORIZONTAL_PIECE_Y, TILE_SIZE / 2, TILE_SIZE / 2),
                     g.getFont());
             drawCenteredString(g, (rotation == 0 ? activePiece.getVal2() : activePiece.getVal1()) + "",
                     new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
-                            ACTIVE_HORIZONTAL_PIECE_Y,
-                            TILE_SIZE / 2, TILE_SIZE / 2),
+                            ACTIVE_HORIZONTAL_PIECE_Y, TILE_SIZE / 2, TILE_SIZE / 2),
                     g.getFont());
         } else {
             g.drawRoundRect(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 4),
                     ACTIVE_VERTICAL_PIECE_Y, TILE_SIZE / 2, TILE_SIZE, TILE_BORDER_RADIUS / 2, TILE_BORDER_RADIUS / 2);
             g.drawLine(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 4),
-                    ACTIVE_VERTICAL_PIECE_Y + (TILE_SIZE / 2),
-                    2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 4)
-                            + (TILE_SIZE / 2),
+                    ACTIVE_VERTICAL_PIECE_Y + (TILE_SIZE / 2), 2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING
+                            + TILE_X_OFFSET + (TILE_SIZE / 4) + (TILE_SIZE / 2),
                     ACTIVE_VERTICAL_PIECE_Y + (TILE_SIZE / 2));
             drawCenteredString(g, (rotation == 1 ? activePiece.getVal1() : activePiece.getVal2()) + "",
                     new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 4),
-                            ACTIVE_VERTICAL_PIECE_Y,
-                            TILE_SIZE / 2, TILE_SIZE / 2),
+                            ACTIVE_VERTICAL_PIECE_Y, TILE_SIZE / 2, TILE_SIZE / 2),
                     g.getFont());
             drawCenteredString(g, (rotation == 1 ? activePiece.getVal2() : activePiece.getVal1()) + "",
                     new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 4),
-                            ACTIVE_VERTICAL_PIECE_Y + (TILE_SIZE / 2),
-                            TILE_SIZE / 2, TILE_SIZE / 2),
+                            ACTIVE_VERTICAL_PIECE_Y + (TILE_SIZE / 2), TILE_SIZE / 2, TILE_SIZE / 2),
                     g.getFont());
         }
     }
