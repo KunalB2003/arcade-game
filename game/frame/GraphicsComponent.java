@@ -1,6 +1,18 @@
 package game.frame;
 
-import static game.Constants.*;
+import static game.Constants.ACTIVE_HORIZONTAL_PIECE_Y;
+import static game.Constants.ACTIVE_VERTICAL_PIECE_Y;
+import static game.Constants.FRAME_DIMENSIONS;
+import static game.Constants.HIGHLIGHT_COLOR_FAIL;
+import static game.Constants.HIGHLIGHT_COLOR_PASS;
+import static game.Constants.POINT_X_OFFSET;
+import static game.Constants.POINT_Y_OFFSET;
+import static game.Constants.SCORE_TEXT_RECT;
+import static game.Constants.TILE_BORDER_RADIUS;
+import static game.Constants.TILE_PADDING;
+import static game.Constants.TILE_SIZE;
+import static game.Constants.TILE_X_OFFSET;
+import static game.Constants.TILE_Y_OFFSET;
 
 import java.awt.Color;
 import java.awt.Font;
