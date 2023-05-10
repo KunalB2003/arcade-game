@@ -85,14 +85,26 @@ public class GraphicsComponent extends JComponent {
     private void drawHighlight(Graphics2D g) {
         g.setColor(highlightSuccess ? HIGHLIGHT_COLOR_PASS : HIGHLIGHT_COLOR_FAIL);
         g.fillRoundRect(highlightedTile1.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
-                TILE_SIZE,
-                TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+        highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+        TILE_SIZE,
+        TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
         g.fillRoundRect(highlightedTile2.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
-                TILE_SIZE,
-                TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+        highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+        TILE_SIZE,
+        TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
         g.setColor(Color.black);
+        if (highlightSuccess) {
+            drawCenteredString(g, activePiece.getVal1() + "",
+                    new Rectangle(highlightedTile1.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                            highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                            TILE_SIZE),
+                    g.getFont());
+            drawCenteredString(g, activePiece.getVal2() + "",
+                    new Rectangle(highlightedTile2.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                            highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                            TILE_SIZE),
+                    g.getFont());
+        }
     }
 
     private void drawActivePiece(Graphics2D g) {
@@ -179,10 +191,10 @@ public class GraphicsComponent extends JComponent {
                         case 3:
                             if (j - 1 > -1) {
                                 highlightedTile2 = new Point(i, j - 1);
-                                highlightSuccess = true;                            
+                                highlightSuccess = true;
                             } else {
                                 highlightedTile2 = new Point(10, 10);
-                                highlightSuccess = false;                            
+                                highlightSuccess = false;
                             }
                             return highlightSuccess;
                     }
