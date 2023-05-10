@@ -5,10 +5,12 @@ import static game.Constants.FRAME_DIMENSIONS;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JFrame;
 
-public class GameFrame extends JFrame implements MouseListener, MouseMotionListener {
+public class GameFrame extends JFrame implements MouseListener, MouseMotionListener, MouseWheelListener {
     
     private GraphicsComponent gc;
 
@@ -19,6 +21,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         addMouseListener(this);
         addMouseMotionListener(this);
+        addMouseWheelListener(this);
         addGraphicsComponent();
     }
 
@@ -55,6 +58,16 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
     @Override
     public void mouseMoved(MouseEvent e) {
         gc.highlightTiles(e);
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        gc.rotation += e.getWheelRotation();
+        if (gc.rotation == -1) {
+            gc.rotation = 3;
+        }
+        gc.rotation %= 4;
+        System.out.println(gc.rotation);
     }
 
 }

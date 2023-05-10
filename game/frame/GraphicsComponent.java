@@ -21,6 +21,7 @@ public class GraphicsComponent extends JComponent {
     private int[][] gameGrid;
     private Point highlightedTile;
     private Piece activePiece;
+    public int rotation;
 
     public GraphicsComponent() {
         super();
@@ -28,19 +29,16 @@ public class GraphicsComponent extends JComponent {
         new Timer(1, (e) -> repaint()).start();
         highlightedTile = new Point(10, 10);
         activePiece = new Piece();
+        rotation = 0;
     }
 
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
         Graphics2D g = (Graphics2D) g0;
         g.clearRect(0, 0, (int) FRAME_DIMENSIONS.getWidth(), (int) FRAME_DIMENSIONS.getHeight());
-        // Score
         drawScore(g);
-        // Grid
         drawGrid(g);
-        // Highlight
         drawHighlight(g);
-        // Active Piece
         drawActivePiece(g);
         // New Game
         // ?
@@ -78,22 +76,27 @@ public class GraphicsComponent extends JComponent {
     }
 
     private void drawActivePiece(Graphics2D g) {
-        g.drawRoundRect(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET, ACTIVE_HORIZONTAL_PIECE_Y,
-                TILE_SIZE, TILE_SIZE / 2, TILE_BORDER_RADIUS / 2, TILE_BORDER_RADIUS / 2);
-        g.drawLine(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
-                ACTIVE_HORIZONTAL_PIECE_Y,
-                2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
-                ACTIVE_HORIZONTAL_PIECE_Y + (TILE_SIZE / 2));
-        drawCenteredString(g, activePiece.getVal1() + "",
-                new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
-                        ACTIVE_HORIZONTAL_PIECE_Y,
-                        TILE_SIZE / 2, TILE_SIZE / 2),
-                g.getFont());
-        drawCenteredString(g, activePiece.getVal2() + "",
-                new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
-                        ACTIVE_HORIZONTAL_PIECE_Y,
-                        TILE_SIZE / 2, TILE_SIZE / 2),
-                g.getFont());
+        if (rotation % 2 == 0) {
+            g.drawRoundRect(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                    ACTIVE_HORIZONTAL_PIECE_Y,
+                    TILE_SIZE, TILE_SIZE / 2, TILE_BORDER_RADIUS / 2, TILE_BORDER_RADIUS / 2);
+            g.drawLine(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
+                    ACTIVE_HORIZONTAL_PIECE_Y,
+                    2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
+                    ACTIVE_HORIZONTAL_PIECE_Y + (TILE_SIZE / 2));
+
+            drawCenteredString(g, (rotation == 0 ? activePiece.getVal1() : activePiece.getVal2()) + "",
+                    new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                            ACTIVE_HORIZONTAL_PIECE_Y,
+                            TILE_SIZE / 2, TILE_SIZE / 2),
+                    g.getFont());
+            drawCenteredString(g, (rotation == 0 ? activePiece.getVal2() : activePiece.getVal1()) + "",
+                    new Rectangle(2 * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET + (TILE_SIZE / 2),
+                            ACTIVE_HORIZONTAL_PIECE_Y,
+                            TILE_SIZE / 2, TILE_SIZE / 2),
+                    g.getFont());
+
+        }
     }
 
     private void drawCenteredString(Graphics2D g, String text, Rectangle rect, Font font) {
