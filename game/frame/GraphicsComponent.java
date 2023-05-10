@@ -11,13 +11,16 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JComponent;
 
 public class GraphicsComponent extends JComponent {
 
     private int[][] gameGrid;
+    private Point highlighedTile;
 
     public GraphicsComponent() {
         super();
@@ -33,6 +36,9 @@ public class GraphicsComponent extends JComponent {
 
         // Grid
         drawGrid(g);
+
+        // Highlight
+        drawHighlight(g);
 
         // Active Piece
         // New Game
@@ -62,12 +68,21 @@ public class GraphicsComponent extends JComponent {
         }
     }
 
+    private void drawHighlight(Graphics2D g) {
+
+    }
+
     private void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
         FontMetrics metrics = g.getFontMetrics(font);
         int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
         int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
         g.setFont(font);
         g.drawString(text, x, y);
+    }
+
+    public void highlightTiles(MouseEvent e) {
+        highlighedTile = new Point((e.getX() - TILE_X_OFFSET - TILE_X_OFFSET) / TILE_X_OFFSET, 1);
+        System.out.println(highlighedTile);
     }
 
 }
