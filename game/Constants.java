@@ -8,7 +8,7 @@ public final class Constants {
     public Constants() {
     }
 
-    public static final String GAME_NAME = "TBD Game Name";
+    public static final String GAME_NAME = "TBD";
 
     private static final int FRAME_WIDTH = 600;
     private static final int FRAME_HEIGHT = 800;
@@ -23,6 +23,10 @@ public final class Constants {
     public static final int TILE_BORDER_RADIUS = 30;
 
 
+
+
+    public static final int POINT_X_OFFSET = -10;
+    public static final int POINT_Y_OFFSET = -31;
 
 
 
