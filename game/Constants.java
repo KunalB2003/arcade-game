@@ -28,8 +28,8 @@ public final class Constants {
     public static final int POINT_X_OFFSET = -10;
     public static final int POINT_Y_OFFSET = -31;
 
-    public static final int ACTIVE_HORIZONTAL_PIECE_Y = 675;
-    public static final int ACTIVE_HORIZONTAL_TEXT_X = 123;
+    public static final int ACTIVE_HORIZONTAL_PIECE_Y = 670;
+    public static final int ACTIVE_VERTICAL_PIECE_Y = 645;
     
     public static final Dimension FRAME_DIMENSIONS = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
     public static final Rectangle SCORE_TEXT_RECT = new Rectangle(SCORE_TEXT_X_BOUNDS, SCORE_TEXT_Y_BOUNDS);

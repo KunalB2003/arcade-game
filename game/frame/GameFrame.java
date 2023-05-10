@@ -67,7 +67,6 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
             gc.rotation = 3;
         }
         gc.rotation %= 4;
-        System.out.println(gc.rotation);
     }
 
 }
