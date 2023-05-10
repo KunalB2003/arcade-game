@@ -20,6 +20,7 @@ public class GraphicsComponent extends JComponent {
 
     private int[][] gameGrid;
     private Point highlightedTile1, highlightedTile2;
+    private boolean highlightSuccess;
     private Piece activePiece;
     public int rotation;
 
@@ -28,7 +29,8 @@ public class GraphicsComponent extends JComponent {
         initializeGameGrid();
         new Timer(1, (e) -> repaint()).start();
         highlightedTile1 = new Point(10, 10);
-        highlightedTile2 = new Point(10, 11);
+        highlightedTile2 = new Point(10, 10);
+        highlightSuccess = true;
         activePiece = new Piece();
         rotation = 0;
     }
@@ -133,33 +135,50 @@ public class GraphicsComponent extends JComponent {
                 int y1 = j * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET;
                 int y2 = y1 + TILE_SIZE;
                 if (mousePos.x > x1 && mousePos.x < x2 && mousePos.y > y1 && mousePos.y < y2) {
+                    highlightedTile1 = new Point(i, j);
                     switch (rotation) {
                         case 0:
-                        highlightedTile1 = new Point(i, j);
-                        highlightedTile2 = new Point(i + 1, j);
-                        return true;
+                            if (i + 1 < 5) {
+                                highlightedTile2 = new Point(i + 1, j);
+                                highlightSuccess = true;
+                            } else {
+                                highlightedTile2 = new Point(10, 10);
+                                highlightSuccess = false;
+                            }
+                            return highlightSuccess;
                         case 1:
-                        highlightedTile1 = new Point(i, j);
-                        highlightedTile2 = new Point(i, j + 1);
-                        return true;
+                            if (j + 1 < 5) {
+                                highlightedTile2 = new Point(i, j + 1);
+                                highlightSuccess = true;
+                            } else {
+                                highlightedTile2 = new Point(10, 10);
+                                highlightSuccess = false;
+                            }
+                            return highlightSuccess;
                         case 2:
-                        highlightedTile1 = new Point(i, j);
-                        highlightedTile2 = new Point(i - 1, j);
-                        return true;
+                            if (i - 1 > -1) {
+                                highlightedTile2 = new Point(i - 1, j);
+                                highlightSuccess = true;
+                            } else {
+                                highlightedTile2 = new Point(10, 10);
+                                highlightSuccess = false;
+                            }
+                            return highlightSuccess;
                         case 3:
-                        highlightedTile1 = new Point(i, j);
-                        highlightedTile2 = new Point(i, j - 1);
-                        return true;
-                        default: 
-                        highlightedTile1 = new Point(10, 10);
-                        highlightedTile2 = new Point(10, 11);
-                        return false;
+                            if (j - 1 > -1) {
+                                highlightedTile2 = new Point(i, j - 1);
+                                highlightSuccess = true;                            
+                            } else {
+                                highlightedTile2 = new Point(10, 10);
+                                highlightSuccess = false;                            
+                            }
+                            return highlightSuccess;
                     }
                 }
             }
         }
         highlightedTile1 = new Point(10, 10);
-        highlightedTile2 = new Point(10, 11);
+        highlightedTile2 = new Point(10, 10);
         return false;
     }
 
