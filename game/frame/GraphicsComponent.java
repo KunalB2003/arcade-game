@@ -22,6 +22,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
@@ -221,7 +222,7 @@ public class GraphicsComponent extends JComponent {
                         if (gameGrid[highlightedTile1.x][highlightedTile1.y] == 0) {
                             if (gameGrid[highlightedTile2.x][highlightedTile2.y] == 0) {
                                 return isValidPlacement;
-                            } 
+                            }
                         }
                         isValidPlacement = false;
                         return isValidPlacement;
@@ -244,7 +245,30 @@ public class GraphicsComponent extends JComponent {
             gameGrid[highlightedTile1.x][highlightedTile1.y] = activePiece.getVal1();
             gameGrid[highlightedTile2.x][highlightedTile2.y] = activePiece.getVal2();
             activePiece = new Piece();
+            combineAdjacentTiles(highlightedTile1); // wip
         }
+    }
+
+    private boolean combineAdjacentTiles(Point tile) {
+        ArrayList<Point> adjacentTiles = getAdjacentTiles(tile, tile, new ArrayList<Point>());
+        System.out.println(adjacentTiles.size());
+        return false;
+    }
+
+    private ArrayList<Point> getAdjacentTiles(Point start, Point tile, ArrayList<Point> tiles) {
+        if (tiles.contains(tile) || tile.x > gameGrid.length - 1 || tile.x < 0 || tile.y > gameGrid[0].length - 1
+                || tile.y < 0 || gameGrid[start.x][start.y] != gameGrid[tile.x][tile.y]) {
+            return tiles;
+        }
+
+        tiles.add(tile);
+
+        tiles = getAdjacentTiles(start, new Point(tile.x + 1, tile.y), tiles);
+        tiles = getAdjacentTiles(start, new Point(tile.x - 1, tile.y), tiles);
+        tiles = getAdjacentTiles(start, new Point(tile.x, tile.y + 1), tiles);
+        tiles = getAdjacentTiles(start, new Point(tile.x, tile.y - 1), tiles);
+
+        return tiles;
     }
 
 }
