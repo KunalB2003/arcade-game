@@ -12,7 +12,7 @@ import static game.Constants.TILE_BORDER_RADIUS;
 import static game.Constants.TILE_PADDING;
 import static game.Constants.TILE_SIZE;
 import static game.Constants.TILE_X_OFFSET;
-import static game.Constants.TILE_Y_OFFSET;
+import static game.Constants.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -96,8 +96,8 @@ public class GraphicsComponent extends JComponent {
                 highlightedTile2.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
                 TILE_SIZE,
                 TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
-        g.setColor(Color.black);
         if (isValidPlacement) {
+            g.setColor(Color.black);
             drawCenteredString(g, activePiece.getVal1() + "",
                     new Rectangle(highlightedTile1.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
                             highlightedTile1.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET,
@@ -110,7 +110,17 @@ public class GraphicsComponent extends JComponent {
                             TILE_SIZE,
                             TILE_SIZE),
                     g.getFont());
+            g.setColor(HIGHLIGHT_ADJACENT_COLOR_1);
+            ArrayList<Point> adjacentTiles = getAdjacentTiles(activePiece.getVal1(), highlightedTile1,
+                    new ArrayList<Point>(), true); //doesn't highlight if other number is the same on domino
+            for (Point tile : adjacentTiles) {
+                g.fillRoundRect(tile.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
+                        tile.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
+                        TILE_SIZE, TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
+            }
+            // getAdjacentTiles(highlightedTile2, highlightedTile2, new ArrayList<Point>());
         }
+        g.setColor(Color.black);
     }
 
     private void drawActivePiece(Graphics2D g) {
@@ -246,8 +256,10 @@ public class GraphicsComponent extends JComponent {
             gameGrid[highlightedTile1.x][highlightedTile1.y] = activePiece.getVal1();
             gameGrid[highlightedTile2.x][highlightedTile2.y] = activePiece.getVal2();
             activePiece = new Piece();
-            while (combineAdjacentTiles(highlightedTile1));
-            while (combineAdjacentTiles(highlightedTile2));
+            while (combineAdjacentTiles(highlightedTile1))
+                ;
+            while (combineAdjacentTiles(highlightedTile2))
+                ;
         }
     }
 
@@ -256,7 +268,7 @@ public class GraphicsComponent extends JComponent {
             return false;
         }
         int tileVal = gameGrid[tile.x][tile.y];
-        ArrayList<Point> adjacentTiles = getAdjacentTiles(tile, tile, new ArrayList<Point>());
+        ArrayList<Point> adjacentTiles = getAdjacentTiles(tileVal, tile, new ArrayList<Point>(), false);
         if (adjacentTiles.size() >= 3) {
             for (Point adjacentTile : adjacentTiles) {
                 gameGrid[adjacentTile.x][adjacentTile.y] = 0;
@@ -267,18 +279,20 @@ public class GraphicsComponent extends JComponent {
         return false;
     }
 
-    private ArrayList<Point> getAdjacentTiles(Point start, Point tile, ArrayList<Point> tiles) {
-        if (tiles.contains(tile) || tile.x > gameGrid.length - 1 || tile.x < 0 || tile.y > gameGrid[0].length - 1
-                || tile.y < 0 || gameGrid[start.x][start.y] != gameGrid[tile.x][tile.y]) {
-            return tiles;
+    private ArrayList<Point> getAdjacentTiles(int val, Point tile, ArrayList<Point> tiles, boolean isHighlight) {
+        if (!isHighlight) {
+            if (tiles.contains(tile) || tile.x > gameGrid.length - 1 || tile.x < 0 || tile.y > gameGrid[0].length - 1
+                    || tile.y < 0 || val != gameGrid[tile.x][tile.y]) {
+                return tiles;
+            }
         }
 
         tiles.add(tile);
 
-        tiles = getAdjacentTiles(start, new Point(tile.x + 1, tile.y), tiles);
-        tiles = getAdjacentTiles(start, new Point(tile.x - 1, tile.y), tiles);
-        tiles = getAdjacentTiles(start, new Point(tile.x, tile.y + 1), tiles);
-        tiles = getAdjacentTiles(start, new Point(tile.x, tile.y - 1), tiles);
+        tiles = getAdjacentTiles(val, new Point(tile.x + 1, tile.y), tiles, false);
+        tiles = getAdjacentTiles(val, new Point(tile.x - 1, tile.y), tiles, false);
+        tiles = getAdjacentTiles(val, new Point(tile.x, tile.y + 1), tiles, false);
+        tiles = getAdjacentTiles(val, new Point(tile.x, tile.y - 1), tiles, false);
 
         return tiles;
     }

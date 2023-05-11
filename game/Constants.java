@@ -25,6 +25,7 @@ public final class Constants {
 
     public static final Color HIGHLIGHT_COLOR_PASS = new Color(165, 232, 221, 100);
     public static final Color HIGHLIGHT_COLOR_FAIL = new Color(204, 123, 110, 100);
+    public static final Color HIGHLIGHT_ADJACENT_COLOR_1 = new Color(123, 130, 209, 100);
 
     public static final int POINT_X_OFFSET = -10;
     public static final int POINT_Y_OFFSET = -31;
