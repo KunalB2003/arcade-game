@@ -57,6 +57,7 @@ public class GraphicsComponent extends JComponent {
         drawHighlight(g);
         drawActivePiece(g);
         // New Game
+        // Limited amount of undos
         // ?
         // Draw Pieces on Grid
         drawPieces(g);
@@ -251,6 +252,9 @@ public class GraphicsComponent extends JComponent {
     }
 
     private boolean combineAdjacentTiles(Point tile) {
+        if (gameGrid[tile.x][tile.y] == 0) {
+            return false;
+        }
         int tileVal = gameGrid[tile.x][tile.y];
         ArrayList<Point> adjacentTiles = getAdjacentTiles(tile, tile, new ArrayList<Point>());
         if (adjacentTiles.size() >= 3) {
