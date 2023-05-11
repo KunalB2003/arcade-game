@@ -245,13 +245,21 @@ public class GraphicsComponent extends JComponent {
             gameGrid[highlightedTile1.x][highlightedTile1.y] = activePiece.getVal1();
             gameGrid[highlightedTile2.x][highlightedTile2.y] = activePiece.getVal2();
             activePiece = new Piece();
-            combineAdjacentTiles(highlightedTile1); // wip
+            while (combineAdjacentTiles(highlightedTile1));
+            while (combineAdjacentTiles(highlightedTile2));
         }
     }
 
     private boolean combineAdjacentTiles(Point tile) {
+        int tileVal = gameGrid[tile.x][tile.y];
         ArrayList<Point> adjacentTiles = getAdjacentTiles(tile, tile, new ArrayList<Point>());
-        System.out.println(adjacentTiles.size());
+        if (adjacentTiles.size() >= 3) {
+            for (Point adjacentTile : adjacentTiles) {
+                gameGrid[adjacentTile.x][adjacentTile.y] = 0;
+            }
+            gameGrid[tile.x][tile.y] = tileVal + 1;
+            return true;
+        }
         return false;
     }
 
