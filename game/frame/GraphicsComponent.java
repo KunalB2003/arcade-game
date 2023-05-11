@@ -117,7 +117,7 @@ public class GraphicsComponent extends JComponent {
                 g.fillRoundRect(tile.x * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_X_OFFSET,
                         tile.y * (TILE_PADDING * 2 + TILE_SIZE) + TILE_PADDING + TILE_Y_OFFSET, TILE_SIZE,
                         TILE_SIZE, TILE_BORDER_RADIUS, TILE_BORDER_RADIUS);
-            }
+            } // wip
             // getAdjacentTiles(highlightedTile2, highlightedTile2, new ArrayList<Point>());
         }
         g.setColor(Color.black);
